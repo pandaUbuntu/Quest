@@ -1,0 +1,3 @@
+﻿  quest.cpp
+C:\Users\Panda\source\repos\quest\quest\quest.cpp(8,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  quest.vcxproj -> C:\Users\Panda\source\repos\quest\x64\Debug\quest.exe
