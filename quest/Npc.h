@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 
 using namespace std;
@@ -9,6 +10,7 @@ class Npc
 
 		int level = 0;
 		int hp = 0;
+		int hpGeneral = 0;
 		int damage = 0; 
 		int armor = 0;
 		int criticalChance = 0;
@@ -16,7 +18,7 @@ class Npc
 		int playerXp = 0;
 
 		int generateRandomLevel(int level) {
-			int percent = rand() % 100 + 1;
+			int percent = this->getPercent(100);
 
 			if (level > 1) {
 				if (percent >= 1 && percent <= 10) {
@@ -45,8 +47,13 @@ class Npc
 			return (rand() % 2 == 1) ? true : false;
 		}
 
-	public:
+	protected:
+		int getPercent(int limit, int offset = 1) {
+			return rand() % limit + offset;
+		}
 
+
+	public:
 		Npc() {}
 
 		void setName(string name) { this->name = name; }
@@ -56,6 +63,8 @@ class Npc
 		int getLevel() { return this->level; }
 		void setHp(int hp) { this->hp = hp; }
 		int getHp() { return this->hp; }
+		void setHpGeneral(int hp) { this->hpGeneral = hp; }
+		int getHpGeneral() { return this->hpGeneral; }
 		void setDamage(int damage) { this->damage = damage; }
 		int getDamage() { return this->damage; }
 		void setArmor(int armor) { this->armor = armor; }
@@ -91,6 +100,7 @@ class Npc
 			int hp = level * 300;
 			hp += this->generateFlag() ? (rand() % 5) * 50 : ((rand() % 5) * 50) * -1;
 			this->setHp(hp * bossHpIncrease);
+			this->setHpGeneral(hp * bossHpIncrease);
 
 			int damage = this->getHp() / 10;
 			damage = this->generateFlag() ? (rand() % 5) * 5 : ((rand() % 5) * 5) * -1;
@@ -111,14 +121,11 @@ class Npc
 		}
 
 		int attack() {
-			int percent = rand() % 100 + 1;
-			int tmpDamage = this->getDamage();
-
-			if (percent <= this->getCriticalChance()) {
-				tmpDamage = tmpDamage + tmpDamage / 2;
+			if (this->getPercent(100) <= this->getCriticalChance()) {
+				return this->getDamage() + (this->getDamage() / 2);
 			}
 
-			return tmpDamage;
+			return this->getDamage();
 		}
 
 		bool takeDamage(int damage) {

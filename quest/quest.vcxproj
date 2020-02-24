@@ -147,15 +147,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="quest.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Armor.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Npc.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="Weapon.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
