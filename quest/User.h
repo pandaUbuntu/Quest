@@ -6,26 +6,35 @@
 class User
 {
 	private:
+		/* Base characters */
 		int expirience = 0;
 		int level = 1;
+
 		int strenght = 10;
 		int agility = 10;
-		int hpGeneral = 1000;
-		int hp = 1000;
+		int hpGeneral = 100 * this->strenght;
+		int hp = this->hpGeneral;
+		int damageBase = 0;
+		int armorBase = 0;
+		int dodge = 10;
 		int mpGeneral = 100;
 		int mp = 100;
 		int regeneration = 10;
+		/* End Base characters */
 
 		int money = 0;
 		int criticalChance = 0;
-		int damageBase = 0;
-		int armorBase = 0;
 
 		Armor* armor;
 		Weapon* weapon;
 
 		bool generateFlag() {
 			return (rand() % 2 == 1) ? true : false;
+		}
+
+		void replaceHp() {
+			this->setHpGeneral(this->getStrenght() * 100);
+			this->setHp(this->getHpGeneral());
 		}
 
 	protected:
@@ -46,17 +55,38 @@ class User
 			return tmpCritical + this->agility / 2;
 		}
 
+		void generateCharactersClass(int strenght, int agiglity, int damage, int armor, int dodge) {
+			this->setStrenght(strenght);
+			this->setAgility(agiglity);
+			this->setDamageBase(damage);
+			this->setArmorBase(armor);
+			this->setDodge(dodge);
+
+			this->replaceHp();
+		}
+
+		void levelUp(int strenght, int agility) {
+			this->setStrenght(this->getStrenght() + strenght);
+			this->setAgility(this->getAgility() + agility);
+
+			this->replaceHp();
+		}
+
 	public:
 		User() {
 			Armor* arm = new Armor(this->getLevel());
 			Weapon* wpn = new Weapon(this->getLevel());
-
+			
 			this->setWeapon(wpn);
 			this->setArmor(arm);
+
+			this->generatorUser();
 		};
 
 		void setHp(int hp) { this->hp = hp; }
 		int getHp() { return hp; }
+		void setHpGeneral(int hpGeneral) { this->hpGeneral = hpGeneral; }
+		int getHpGeneral() { return hpGeneral; }
 		void setMp(int mp) { this->mp = mp; }
 		int getMp() { return hp; }
 		void setLevel(int level) { this->level = level; }
@@ -77,6 +107,8 @@ class User
 		int getArmorBase() { return this->armorBase; }
 		void setDamageBase(int damageBase) { this->damageBase = damageBase; }
 		int getDamageBase() { return this->damageBase; }
+		void setDodge(int dodge) { this->dodge = dodge; }
+		int getDodge() { return dodge; }
 
 		void generatorUser() {
 			this->money = rand() % 10 * 100;
@@ -96,8 +128,11 @@ class User
 
 			if (tmpDamage < 0) { tmpDamage = 0;  }
 
-			int hp = this->getHp() - tmpDamage;
-			this->setHp(hp);
+			if (this->getPercent(100) > this->dodge) {
+				int hp = this->getHp() - tmpDamage;
+				this->setHp(hp);
+			}
+			
 
 			if (this->getHp() <= 0) {
 				return this->death();
@@ -107,7 +142,7 @@ class User
 		}
 
 		void regenerationPlayer() {
-			int regenerationHp = this->hpGeneral / 10 + this->hp;
+			int regenerationHp = this->hpGeneral / this->regeneration + this->hp;
 			if (regenerationHp > this->hpGeneral) {
 				this->hp = this->hpGeneral;
 			}
@@ -115,7 +150,7 @@ class User
 				this->hp = regenerationHp;
 			}
 
-			int regenerationMp = this->mpGeneral / 10 + this->mp;
+			int regenerationMp = this->mpGeneral / this->regeneration + this->mp;
 			if (regenerationMp > this->mpGeneral) {
 				this->mp = this->mpGeneral;
 			}

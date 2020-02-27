@@ -17,6 +17,7 @@ int main()
 
     cout << "Armor : " << player->getArmor()->getName() << endl;
     cout << "Weapon : " << player->getWeapon()->getName() << endl;
+    
 
 
    // monster->takeDamage(455);
