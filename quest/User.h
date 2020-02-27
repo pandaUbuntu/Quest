@@ -5,7 +5,7 @@
 
 class User
 {
-	/*private:
+	private:
 		int expirience = 0;
 		int level = 1;
 		int strenght = 10;
@@ -21,8 +21,8 @@ class User
 		int damageBase = 0;
 		int armorBase = 0;
 
-		Armor armor;
-		Weapon weapon;
+		Armor* armor;
+		Weapon* weapon;
 
 		bool generateFlag() {
 			return (rand() % 2 == 1) ? true : false;
@@ -34,14 +34,27 @@ class User
 		} 
 
 		int getSummaryDamage() {
-			return this->getStrenght();
+			return this->strenght * 5 + this->weapon->getDamage() + damageBase;
 		}
 
 		int getSummaryDefence() {
-			return this->getStrenght();
+			return this->strenght * 2 + this->armor->getDefence() + this->agility * 2 + armorBase;
+		}
+
+		int getSummaryCriticalChance() {
+			int tmpCritical = 5 + rand() % 5;
+			return tmpCritical + this->agility / 2;
 		}
 
 	public:
+		User() {
+			Armor* arm = new Armor(this->getLevel());
+			Weapon* wpn = new Weapon(this->getLevel());
+
+			this->setWeapon(wpn);
+			this->setArmor(arm);
+		};
+
 		void setHp(int hp) { this->hp = hp; }
 		int getHp() { return hp; }
 		void setMp(int mp) { this->mp = mp; }
@@ -56,26 +69,44 @@ class User
 		int getAgility() { return agility; }
 		void setCriticalChance(int critical) { this->criticalChance = critical; }
 		int getCriticalChance() { return this->criticalChance; }
-
+		void setArmor(Armor* armor) { this->armor = armor; }
+		Armor* getArmor() { return this->armor; }
+		void setWeapon(Weapon* weapon) { this->weapon = weapon; }
+		Weapon* getWeapon() { return this->weapon; }
+		void setArmorBase(int armor) { this->armorBase = armor; }
+		int getArmorBase() { return this->armorBase; }
+		void setDamageBase(int damageBase) { this->damageBase = damageBase; }
+		int getDamageBase() { return this->damageBase; }
 
 		void generatorUser() {
 			this->money = rand() % 10 * 100;
-			this->criticalChance = 5 + rand() % 5;
+			this->criticalChance = this->getSummaryCriticalChance();
 		}
 
 		int attack() {
 			if (this->getPercent(100) <= this->getCriticalChance()) {
-				return this->getSummaryDamage() + (this->getSummaryDamage() / 2);
+				return this->getSummaryDamage() * 2;
 			}
 
 			return this->getSummaryDamage();
 		}
 
-		bool takeDamage() {
-			
+		bool takeDamage(int damage) {
+			int tmpDamage = (damage - this->getSummaryDefence());
+
+			if (tmpDamage < 0) { tmpDamage = 0;  }
+
+			int hp = this->getHp() - tmpDamage;
+			this->setHp(hp);
+
+			if (this->getHp() <= 0) {
+				return this->death();
+			}
+
+			return false;
 		}
 
-		void regeneration() {
+		void regenerationPlayer() {
 			int regenerationHp = this->hpGeneral / 10 + this->hp;
 			if (regenerationHp > this->hpGeneral) {
 				this->hp = this->hpGeneral;
@@ -91,6 +122,10 @@ class User
 			else {
 				this->mp = regenerationMp;
 			}
-		}*/
+		}
+
+		bool death() {
+			return true;
+		}
 };
 

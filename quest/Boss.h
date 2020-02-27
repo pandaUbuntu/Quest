@@ -18,8 +18,8 @@ class Boss : public Npc
 		string phraseRandom[4] = { "", "", "", "" };
 	
 		string generateName() {
-			this->subPosition = rand() % sizeSub;
-			return sub[subPosition] + " " + nameList[rand() % sizeName];
+			this->subPosition = rand() % this->sizeSub;
+			return sub[this->subPosition] + " " + nameList[rand() % this->sizeName];
 		}
 
 	public:
@@ -45,7 +45,7 @@ class Boss : public Npc
 
 			if ((this->getHpGeneral() / 5 <= this->getHp()) && !isHeal && (percent >= 1 && percent <= 10)) {
 				this->selfHeal();
-				isHeal = true;
+				this->isHeal = true;
 			}
 
 			if (this->getHp() <= 0) {
@@ -56,7 +56,7 @@ class Boss : public Npc
 		}
 
 		int ultimateDefense() {
-			if (this->getPercent(100) == 34) {
+			if (this->getPercent(100) == 42) {
 				return 10;
 			}
 
@@ -70,7 +70,5 @@ class Boss : public Npc
 		bool insult() {
 			return true;
 		}
-
-
 };
 
