@@ -8,14 +8,16 @@ class Weapon : public Item
 		int subPoint = 0;
 
 		int sizeSub = 12;
-		string sub[12] = {"Эпичный", "Легендарный", "Анигиляторный", "Галогенный", "Гелевый", "Мифриловый", 
-		"Двухсторонний", "Безлезвенный", "Обычный", "Воображаемый", "Мохнатый", "Убитый"};
+		string sub[12] = {"Эпичный", "Легендарный", "Анигиляторный", "Галогенный",
+						  "Гелевый", "Мифриловый", "Двухсторонний", "Безлезвенный", 
+						  "Обычный", "Воображаемый", "Мохнатый", "Убитый"};
 
 		int typeSize = 6;
-		string typeList[6] = { "", "", "", "", "", "" };
+		string typeList[6] = { "Катана", "Посох", "Кунаи", "Ствол", "Кинжал", "Камень" };
 
 		int sizeName = 10;
-		string nameList[10] = {"", "", "", "", "", "", "", "", "", ""};
+		string nameList[10] = {"Без меня", "Пятница", "Андрей", "Расщепитель", "Суи", "Бейся сам", "Швабра", 
+			"Мрак", "Ногоперебиватель", "Демонсдох"};
 
 		string generateName() {
 			int subPercent = this->getPercent(100);
@@ -33,10 +35,14 @@ class Weapon : public Item
 				}
 			}
 			else {
-				this->subPoint = (rand() % (sizeSub - 3)) + 3;
+				this->subPoint = (rand() % (this->sizeSub - 3)) + 3;
 			}
 
 			return sub[this->subPoint] + " " + nameList[rand() % sizeName];
+		}
+
+		string generateType() {
+			return typeList[rand() % this->typeSize];
 		}
 
 		void generateCharaters(int level) {
@@ -74,7 +80,10 @@ class Weapon : public Item
 
 		Weapon(int level) {
 			this->setName(this->generateName());
+			this->setType(this->generateType());
 			this->generateCharaters(level);
 		}
+
+		
 };
 

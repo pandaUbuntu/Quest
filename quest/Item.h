@@ -22,12 +22,11 @@ class Item
 		int getPrice() { return this->price; }
 		void setName(string name) { this->name = name; }
 		string getName() { return this->name; }
-		void setType(int type) { this->type = type; }
+		void setType(string type) { this->type = type; }
 		string getType() { return this->type; }
 		void setStrenghtLimit(int strenghtLimit) { this->strenghtLimit = strenghtLimit; }
 		int getStrenghtLimit() { return this->strenghtLimit; }
 		void setAgilityLimit(int agilityLimit) { this->agilityLimit = agilityLimit; }
 		int getAgilityLimit() { return this->agilityLimit; }
-
 };
 
