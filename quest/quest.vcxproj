@@ -147,22 +147,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActionHelper.cpp" />
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Boss.cpp" />
+    <ClCompile Include="DamageDealer.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Mob.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="quest.cpp" />
+    <ClCompile Include="Rogue.cpp" />
     <ClCompile Include="Tank.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionHelper.h" />
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Boss.h" />
+    <ClInclude Include="DamageDealer.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Mob.h" />
     <ClInclude Include="Npc.h" />
+    <ClInclude Include="Rogue.h" />
     <ClInclude Include="Tank.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="Weapon.h" />

@@ -15,8 +15,8 @@ int main()
     Boss* boss = new Boss(1);
     Tank* player = new Tank();
 
-    cout << "Armor : " << player->getArmor()->getName() << endl;
-    cout << "Weapon : " << player->getWeapon()->getName() << endl;
+    cout << "Armor : " << player->getArmor()->getName() << " armor: " << player->getArmor()->getDefence() << " type: " << player->getArmor()->getType()  << endl;
+    cout << "Weapon : " << player->getWeapon()->getName() << " damage: " << player->getWeapon()->getDamage() << " type: " << player->getWeapon()->getType()  << endl;
     
 
 

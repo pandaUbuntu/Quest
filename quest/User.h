@@ -43,11 +43,11 @@ class User
 		} 
 
 		int getSummaryDamage() {
-			return this->strenght * 5 + this->weapon->getDamage() + damageBase;
+			return this->strenght * 5 + this->weapon->getDamage() + this->damageBase;
 		}
 
 		int getSummaryDefence() {
-			return this->strenght * 2 + this->armor->getDefence() + this->agility * 2 + armorBase;
+			return this->strenght * 2 + this->armor->getDefence() + this->agility * 2 + this->armorBase;
 		}
 
 		int getSummaryCriticalChance() {
@@ -109,6 +109,16 @@ class User
 		int getDamageBase() { return this->damageBase; }
 		void setDodge(int dodge) { this->dodge = dodge; }
 		int getDodge() { return dodge; }
+
+		void changeMoney(int money) {
+			this->money += money;
+		}
+
+		void changeStrenght(int strenght) {
+			this->strenght += strenght;
+
+			this->replaceHp();
+		}
 
 		void generatorUser() {
 			this->money = rand() % 10 * 100;

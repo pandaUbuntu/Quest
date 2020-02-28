@@ -1,5 +1,2 @@
-﻿  Tank.cpp
-  quest.cpp
-C:\Users\Panda\source\repos\questTest\quest\quest.cpp(11,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-  Создание кода...
+﻿  ActionHelper.cpp
   quest.vcxproj -> C:\Users\Panda\source\repos\questTest\x64\Debug\quest.exe
